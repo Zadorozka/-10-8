@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_COUNTRIES 50
+
+struct country {
+    char name[30];
+    char capital[30];
+    int population;
+    int area;
+    int num_cities;
+};
+
+int main() {
+    struct country countries[MAX_COUNTRIES];
+    int num_countries, i, j;
+
+    // read input
+    printf("Введіть кількість країн: ");
+    scanf("%d", &num_countries);
+
+    for (i = 0; i < num_countries; i++) {
+        printf("Введіть дані для країни %d:\n", i+1);
+        printf("Ім'я: ");
+        scanf("%s", countries[i].name);
+        printf("Столиця: ");
+        scanf("%s", countries[i].capital);
+        printf("Населення: ");
+        scanf("%d", &countries[i].population);
+        printf("Площа: ");
+        scanf("%d", &countries[i].area);
+        printf("Кількість міст: ");
+        scanf("%d", &countries[i].num_cities);
+    }
+
+    // sort by population using bubble sort
+    for (i = 0; i < num_countries-1; i++) {
+        for (j = 0; j < num_countries-i-1; j++) {
+            if (countries[j].population > countries[j+1].population) {
+                struct country temp = countries[j];
+                countries[j] = countries[j+1];
+                countries[j+1] = temp;
+            }
+        }
+    }
+
+    // display output
+    printf("\nКраїни, відсортовані за кількістю населення:\n");
+    for (i = 0; i < num_countries; i++) {
+        printf("%d. %s (столиця: %s, населення: %d, площа: %d кв. км, кількість міст: %d)\n", i+1,
+            countries[i].name, countries[i].capital, countries[i].population, countries[i].area, countries[i].num_cities);
+    }
+
+    return 0;
+}
